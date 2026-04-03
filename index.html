@@ -46,7 +46,7 @@
                 
                 <div id="menu-wrapper">
                     <div id="menu-list">
-                        <p class="category-label">BAKSO & MIE AYAM (10)</p>
+                        <p class="category-label">BAKSO & MIE AYAM</p>
                         <div class="menu-item"><div><b>Bakso Urat Granat</b><br><span class="price">Rp 28.000</span></div><button class="btn-add" onclick="addItem('Bakso Urat Granat', 28000)">+</button></div>
                         <div class="menu-item"><div><b>Bakso Telur Puyuh</b><br><span class="price">Rp 25.000</span></div><button class="btn-add" onclick="addItem('Bakso Telur Puyuh', 25000)">+</button></div>
                         <div class="menu-item"><div><b>Bakso Keju Melt</b><br><span class="price">Rp 30.000</span></div><button class="btn-add" onclick="addItem('Bakso Keju Melt', 30000)">+</button></div>
@@ -58,7 +58,7 @@
                         <div class="menu-item"><div><b>Mie Ayam Rica-Rica</b><br><span class="price">Rp 22.000</span></div><button class="btn-add" onclick="addItem('Mie Ayam Rica', 22000)">+</button></div>
                         <div class="menu-item"><div><b>Mie Ayam Bakso Urat</b><br><span class="price">Rp 25.000</span></div><button class="btn-add" onclick="addItem('Mie Ayam Bakso', 25000)">+</button></div>
 
-                        <p class="category-label">DRINKS (5)</p>
+                        <p class="category-label">DRINKS</p>
                         <div class="menu-item"><div><b>Es Campur Jaksel</b><br><span class="price">Rp 15.000</span></div><button class="btn-add" onclick="addItem('Es Campur', 15000)">+</button></div>
                         <div class="menu-item"><div><b>Jeruk Peras</b><br><span class="price">Rp 10.000</span></div><button class="btn-add" onclick="addItem('Jeruk Peras', 10000)">+</button></div>
                         <div class="menu-item"><div><b>Es Teh Manis</b><br><span class="price">Rp 5.000</span></div><button class="btn-add" onclick="addItem('Es Teh Manis', 5000)">+</button></div>
@@ -66,27 +66,59 @@
                         <div class="menu-item"><div><b>Air Mineral Biasa</b><br><span class="price">Rp 3.000</span></div><button class="btn-add" onclick="addItem('Mineral Biasa', 3000)">+</button></div>
                     </div>
 
+                    <div class="cart-summary-box">
+                        <p class="category-label" style="margin-top:0">YOUR SELECTION</p>
+                        <div id="cart-items-list">
+                            <p class="empty-msg" style="font-size: 11px; color: var(--text-muted);">Belum ada pesanan...</p>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>PREFERENCES / NOTES</label>
+                        <div class="chip-container">
+                            <div class="chip" onclick="toggleChip(this)">Pedas Banget</div>
+                            <div class="chip" onclick="toggleChip(this)">No Seledri</div>
+                            <div class="chip" onclick="toggleChip(this)">Pisah Kuah</div>
+                            <div class="chip" onclick="toggleChip(this)">Extra Bawang</div>
+                        </div>
+                    </div>
+
                     <div class="total-section">
                         <h4 id="total-display">Total: Rp 0</h4>
                     </div>
-                    <button class="btn btn-success" onclick="showQRIS()">PAYMENT</button>
+                    <button class="btn btn-success" onclick="showQRIS()">PROCEED TO PAYMENT</button>
                 </div>
                 
                 <div id="qris-area" class="hidden text-center">
-                    <div class="qris-frame">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BaksoAppPay" class="qris-img">
+                    <div class="qris-card">
+                        <div class="qris-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" alt="QRIS" width="80">
+                        </div>
+                        <div class="qris-frame">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BaksoAppPay" class="qris-img">
+                        </div>
+                        <div class="qris-footer">
+                            <h4>Scan & Pay Now</h4>
+                            <p>Pembayaran akan diverifikasi otomatis oleh tim kami. Sambil nunggu, boleh banget cek playlist Spotify lo dulu!</p>
+                        </div>
                     </div>
                     <button class="btn btn-primary" onclick="confirmPayment()">SAYA SUDAH BAYAR</button>
+                    <p style="font-size: 10px; color: var(--text-muted); margin-top: 15px;">Secure Transaction via BaksoApp Pay</p>
                 </div>
             </section>
 
             <section id="step-3" class="card hidden text-center">
-                <div id="stat-icon" class="status-icon pulse">⌛</div>
-                <h2 id="stat-title">VERIFYING...</h2>
+                <div class="card-header">
+                    <h3>STATUS</h3>
+                    <span class="step-badge">3</span>
+                </div>
+                <div id="stat-icon" class="status-icon pulse" style="font-size:50px;">⌛</div>
+                <h2 id="stat-title" style="margin-top:15px;">VERIFYING...</h2>
                 <div class="user-badge">
                     <p>Name: <b id="res-name">-</b> | Table: <b id="res-table">-</b></p>
+                    <div id="res-summary"></div>
                 </div>
-                <button class="admin-trigger" onclick="adminAction()"></button>
+                <button class="admin-trigger" onclick="adminAction()">Admin Process</button>
                 <button id="btn-reset" class="btn btn-primary hidden" onclick="location.reload()">ORDER LAGI</button>
             </section>
         </main>

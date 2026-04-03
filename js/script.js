@@ -1,10 +1,8 @@
 let cart = [];
 
-// THEME TOGGLE LOGIC
 function toggleTheme() {
     const body = document.body;
     const icon = document.getElementById('theme-icon');
-    
     if (body.classList.contains('dark-theme')) {
         body.classList.replace('dark-theme', 'light-theme');
         icon.classList.replace('fa-sun', 'fa-moon');
@@ -16,30 +14,24 @@ function toggleTheme() {
     }
 }
 
-window.onload = () => {
-    // Default is dark, but check if user explicitly set light
-    if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.replace('dark-theme', 'light-theme');
-        document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon');
-    }
-};
+// Fitur Baru: Modern Chip Toggle
+function toggleChip(el) {
+    el.classList.toggle('active');
+}
 
-// ORDER FLOW
 function startOrder() {
     const name = document.getElementById('cust-name').value;
     const table = document.getElementById('cust-table').value;
-    if(!name || !table) return alert("Identify yourself first!");
-
+    if(!name || !table) return alert("Woi, isi dulu datanya!");
+    
     localStorage.setItem('u_name', name);
     localStorage.setItem('u_table', table);
-
+    
     document.getElementById('step-2').classList.remove('hidden');
-    document.getElementById('menu-title').innerText = `FOR ${name.toUpperCase()}`;
-    document.getElementById('step-1').style.opacity = "0.3";
-    document.getElementById('step-1').style.pointerEvents = "none";
+    document.getElementById('menu-title').innerText = `ORDER FOR ${name.toUpperCase()}`;
+    document.getElementById('step-1').style.opacity = "0.4";
 }
 
-// CART LOGIC
 function addItem(itemName, price) {
     const existing = cart.find(i => i.name === itemName);
     if(existing) {
@@ -62,8 +54,14 @@ function removeItem(itemName) {
 function renderCart() {
     const list = document.getElementById('cart-items-list');
     const totalDisp = document.getElementById('total-display');
-    list.innerHTML = cart.length === 0 ? '<p class="empty-msg">Your cart is empty.</p>' : '';
     
+    if(cart.length === 0) {
+        list.innerHTML = '<p class="empty-msg" style="font-size: 11px; color: var(--text-muted);">Belum ada pesanan...</p>';
+        totalDisp.innerText = "Total: Rp 0";
+        return;
+    }
+
+    list.innerHTML = '';
     let total = 0;
     cart.forEach(item => {
         total += item.price * item.qty;
@@ -79,35 +77,35 @@ function renderCart() {
     totalDisp.innerText = `Total: Rp ${total.toLocaleString()}`;
 }
 
-// PAYMENT & FINAL STATUS
 function showQRIS() {
-    if(cart.length === 0) return alert("Choose your meal first!");
+    if(cart.length === 0) return alert("Pilih menu dulu!");
     document.getElementById('menu-wrapper').classList.add('hidden');
     document.getElementById('qris-area').classList.remove('hidden');
 }
 
 function confirmPayment() {
-    const notes = Array.from(document.querySelectorAll('.note-cb:checked')).map(cb => cb.value);
+    // Ambil nilai dari chips yang aktif
+    const notes = Array.from(document.querySelectorAll('.chip.active')).map(chip => chip.innerText);
     const menuStr = cart.map(i => `${i.name} (x${i.qty})`).join(', ');
 
     document.getElementById('step-3').classList.remove('hidden');
-    document.getElementById('step-2').style.opacity = "0.3";
+    document.getElementById('step-2').style.opacity = "0.4";
     
     document.getElementById('res-name').innerText = localStorage.getItem('u_name');
     document.getElementById('res-table').innerText = localStorage.getItem('u_table');
     document.getElementById('res-summary').innerHTML = `
-        <p><b>MENU:</b> ${menuStr}</p>
-        <p><b>EXTRA:</b> ${notes.join(', ') || 'NONE'}</p>
+        <p><b>Items:</b> ${menuStr}</p>
+        <p style="margin-top:5px;"><b>Notes:</b> ${notes.join(', ') || 'Normal / Tidak ada catatan'}</p>
     `;
 }
 
-// ADMIN SECRET ACTION
 function adminAction() {
     const icon = document.getElementById('stat-icon');
     icon.innerText = "👨‍🍳";
     icon.classList.remove('pulse');
-    document.getElementById('stat-title').innerText = "COOKING...";
-    document.getElementById('stat-title').style.color = "var(--accent)";
-    document.querySelector('.admin-trigger').classList.add('hidden');
-    setTimeout(() => { document.getElementById('btn-reset').classList.remove('hidden'); }, 1000);
+    document.getElementById('stat-title').innerText = "LAGI DIMASAK!";
+    document.getElementById('stat-title').style.color = "#2ed573";
+    setTimeout(() => { 
+        document.getElementById('btn-reset').classList.remove('hidden'); 
+    }, 1000);
 }
