@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaksoApp | Digital Order System Pro</title>
-    <link rel="stylesheet" href="css/style.css?v=1.1">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -17,8 +17,11 @@
                 <i id="theme-icon" class="fas fa-moon"></i>
             </button>
         </div>
-        <h1>Bakso<span>App</span></h1>
-        <p>Gaya Kalcer, Makan Gak Pake Antre</p>
+        <div class="hero-section">
+            <div class="badge-kalcer">EST. 2026 • SOUTH JAKARTA</div>
+            <h1>Bakso<span>App</span></h1>
+            <p>Gaya Kalcer, Makan Gak Pake Antre</p>
+        </div>
     </header>
 
     <main class="main-grid">
@@ -60,42 +63,29 @@
                         <button class="btn-add" onclick="addItem('Urat Double', 35000)">+</button>
                     </div>
 
-                    <p class="category-label">EXTRA ADD-ONS</p>
-                    <div class="menu-item">
-                        <div><b>Extra 3 Bakso Kecil</b><br><span class="price">Rp 10.000</span></div>
-                        <button class="btn-add" onclick="addItem('Ex 3 Kecil', 10000)">+</button>
-                    </div>
-                    <div class="menu-item">
-                        <div><b>Ex 1 Urat Telur</b><br><span class="price">Rp 8.000</span></div>
-                        <button class="btn-add" onclick="addItem('Ex Urat Telur', 8000)">+</button>
-                    </div>
-
-                    <p class="category-label">MINUMAN & DESSERT</p>
+                    <p class="category-label">MINUMAN</p>
                     <div class="menu-item">
                         <div><b>Es Teh Tarik</b><br><span class="price">Rp 12.000</span></div>
                         <button class="btn-add" onclick="addItem('Teh Tarik', 12000)">+</button>
                     </div>
                     <div class="menu-item">
-                        <div><b>Es Milo Kepal</b><br><span class="price">Rp 15.000</span></div>
-                        <button class="btn-add" onclick="addItem('Milo', 15000)">+</button>
-                    </div>
-                    <div class="menu-item">
-                        <div><b>Jeruk Peras (Es/Hgt)</b><br><span class="price">Rp 10.000</span></div>
+                        <div><b>Jeruk Peras</b><br><span class="price">Rp 10.000</span></div>
                         <button class="btn-add" onclick="addItem('Jeruk', 10000)">+</button>
                     </div>
-                    <div class="menu-item">
-                        <div><b>Air Mineral Cold</b><br><span class="price">Rp 5.000</span></div>
-                        <button class="btn-add" onclick="addItem('Air Mineral', 5000)">+</button>
-                    </div>
 
-                    <p class="category-label">NOTES (CEKLIS YG MAU)</p>
+                    <p class="category-label">NOTES (CUSTOMIZE)</p>
                     <div class="notes-container">
                         <div class="note-option"><input type="checkbox" class="note-cb" value="Sawi" id="c1"><label for="c1">Sawi</label></div>
-                        <div class="note-option"><input type="checkbox" class="note-cb" value="Bawang Goreng" id="c2"><label for="c2">Bawang</label></div>
+                        <div class="note-option"><input type="checkbox" class="note-cb" value="Bawang" id="c2"><label for="c2">Bawang</label></div>
                         <div class="note-option"><input type="checkbox" class="note-cb" value="Toge" id="c3"><label for="c3">Toge</label></div>
-                        <div class="note-option"><input type="checkbox" class="note-cb" value="Mie Kuning" id="c4"><label for="c4">Mie Kuning</label></div>
-                        <div class="note-option"><input type="checkbox" class="note-cb" value="Mie Putih" id="c5"><label for="c5">Mie Putih</label></div>
-                        <div class="note-option"><input type="checkbox" class="note-cb" value="Seledri" id="c6"><label for="c6">Seledri</label></div>
+                        <div class="note-option"><input type="checkbox" class="note-cb" value="Seledri" id="c4"><label for="c4">Seledri</label></div>
+                    </div>
+                </div>
+
+                <div class="cart-summary-box">
+                    <p class="category-label">KERANJANG LO</p>
+                    <div id="cart-items-list">
+                        <p class="empty-msg">Belum ada pesanan nih...</p>
                     </div>
                 </div>
                 
@@ -106,9 +96,17 @@
             </div>
             
             <div id="qris-area" class="hidden text-center">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BaksoApp" class="qris-img">
-                <p class="qris-text">SILAKAN SCAN QRIS</p>
-                <button class="btn btn-primary" onclick="confirmPayment()">Gue Udah Bayar</button>
+                <div class="qris-frame">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BaksoAppPay" class="qris-img">
+                    <div class="qris-glow"></div>
+                </div>
+                <p class="qris-text">"Selesaikan pembayaran biar pesanan lo langsung meluncur!"</p>
+                <div class="payment-methods">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <button class="btn btn-primary" onclick="confirmPayment()">Gue Udah Bayar, Bro</button>
             </div>
         </section>
 
@@ -118,17 +116,17 @@
                 <span class="step-badge">3</span>
             </div>
             <div id="stat-icon" class="status-icon pulse">⌛</div>
-            <h2 id="stat-title">Menunggu Verifikasi</h2>
+            <h2 id="stat-title">Lagi Dicek Admin</h2>
             <div class="user-badge">
                 <p>Customer: <b id="res-name">-</b> | Meja: <b id="res-table">-</b></p>
-                <div id="res-notes" style="font-size: 0.75rem; color: var(--primary); margin-top: 8px; font-weight: 600;"></div>
+                <div id="res-summary" class="summary-final"></div>
             </div>
             <button class="admin-trigger" onclick="adminAction()"></button>
-            <button id="btn-reset" class="btn btn-primary hidden" onclick="location.reload()">Pesan Baru</button>
+            <button id="btn-reset" class="btn btn-primary hidden" onclick="location.reload()">Order Lagi</button>
         </section>
     </main>
 </div>
 
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
